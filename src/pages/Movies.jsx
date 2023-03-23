@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar/SearchBar';
 import { MoviesList } from 'components/MoviesList/MoviestList';
 import { getMoviesByQuery } from 'services/moviesAPI';
 import { truncMoviesProperties } from 'services/truncMovieProperties';
 
 export const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [searchMovies, setSearchMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(() => {
+    return searchParams.get('search') ?? '';
+  });
+  const location = useLocation();
 
   useEffect(() => {
     const loadMoviesByQuery = async query => {
@@ -15,12 +20,14 @@ export const Movies = () => {
     };
 
     loadMoviesByQuery(searchQuery);
-  }, [searchQuery]);
+    const nextParams = searchQuery !== '' ? { search: searchQuery } : {};
+    setSearchParams(nextParams);
+  }, [searchQuery, setSearchParams]);
 
   return (
     <>
       <SearchBar onSubmit={setSearchQuery} />
-      <MoviesList moviesList={searchMovies} />
+      <MoviesList moviesList={searchMovies} state={{ from: location }} />
     </>
   );
 };

@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import { ItemLink } from './MoviesListItem.styled';
 
-export const MoviesListItem = ({ movie }) => {
-  return <ItemLink to={`/movies/${movie.id}`}>{movie.title}</ItemLink>;
+export const MoviesListItem = ({ movie, state }) => {
+  return (
+    <ItemLink to={`/movies/${movie.id}`} state={state}>
+      {movie.title}
+    </ItemLink>
+  );
 };
 
 MoviesListItem.propTypes = {

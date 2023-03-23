@@ -5,6 +5,7 @@ import { truncMoviesProperties } from 'services/truncMovieProperties';
 
 export const Home = () => {
   const [moviesTrends, setmoviesTrends] = useState([]);
+
   useEffect(() => {
     loadMoviesTrends();
   }, []);

@@ -1,7 +1,9 @@
-import { useParams, NavLink, Outlet } from 'react-router-dom';
+import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMovieById } from 'services/moviesAPI';
 import { Wrapper, PosterMovieDetails } from './MovieDetails.styled';
+import placeholder from '../images/no-image-placeholder.png';
+import { GoBack } from 'components/GoBack/GoBack';
 
 const genre = genres => {
   if (!genres) {
@@ -17,6 +19,8 @@ const genre = genres => {
 export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     const loadMovieById = async query => {
@@ -32,9 +36,13 @@ export const MovieDetails = () => {
   }
 
   const { title, overview, genres, poster_path, id } = movie;
-  const url = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  const url = poster_path
+    ? `https://image.tmdb.org/t/p/w500${poster_path}`
+    : placeholder;
+
   return (
     <>
+      <GoBack to={backLinkHref}>Go back</GoBack>
       <Wrapper>
         <PosterMovieDetails src={url} />
         <div>
@@ -49,12 +57,12 @@ export const MovieDetails = () => {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <NavLink to="cast" id={id}>
+            <NavLink to="cast" state={{ from: backLinkHref }} id={id}>
               Cast
             </NavLink>
           </li>
           <li>
-            <NavLink to="reviews" id={id}>
+            <NavLink to="reviews" state={{ from: backLinkHref }} id={id}>
               Reviews
             </NavLink>
           </li>

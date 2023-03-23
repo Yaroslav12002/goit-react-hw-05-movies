@@ -8,7 +8,6 @@ const fetchMovies = async (endpoint, param) => {
   let query = '';
   if (param) {
     query = `&query=${param}`;
-    console.log('param=', param);
   }
   try {
     const response = await axios.get(`${endpoint}?api_key=${API_KEY}${query}`);
