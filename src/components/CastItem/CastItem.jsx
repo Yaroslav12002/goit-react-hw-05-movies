@@ -5,6 +5,7 @@ export const CastItem = ({ name, url, character }) => {
     <div>
       <img
         src={url}
+        alt={name}
         width="100px"
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;

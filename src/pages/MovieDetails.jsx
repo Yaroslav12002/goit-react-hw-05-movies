@@ -25,7 +25,7 @@ export const MovieDetails = () => {
     };
 
     loadMovieById(movieId);
-  }, []);
+  }, [movieId]);
 
   if (!movie) {
     return;
