@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const ReviewItem = ({ author, content }) => {
   return (
     <div>
@@ -5,4 +7,9 @@ export const ReviewItem = ({ author, content }) => {
       <p>{content}</p>
     </div>
   );
+};
+
+ReviewItem.propTypes = {
+  author: PropTypes.string,
+  content: PropTypes.string,
 };

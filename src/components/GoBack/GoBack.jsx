@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { HiArrowLeft } from 'react-icons/hi';
 import { StyledLink } from './GoBack.styled';
 
@@ -8,4 +9,9 @@ export const GoBack = ({ to, children }) => {
       {children}
     </StyledLink>
   );
+};
+
+GoBack.propTypes = {
+  to: PropTypes.object,
+  children: PropTypes.string,
 };

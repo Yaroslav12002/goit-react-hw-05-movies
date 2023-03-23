@@ -32,4 +32,5 @@ MoviesList.propTypes = {
       overview: PropTypes.string.isRequired,
     })
   ),
+  state: PropTypes.object,
 };

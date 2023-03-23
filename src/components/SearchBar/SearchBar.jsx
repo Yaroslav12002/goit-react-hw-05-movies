@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import {
   SearchbarHeader,
@@ -18,7 +19,7 @@ export function SearchBar({ onSubmit }) {
   const handleSubmit = event => {
     event.preventDefault();
     if (textForSearch.trim() === '') {
-      alert('Please enter some text');
+      Notify.failure('Please enter some text');
       return;
     }
     onSubmit(textForSearch);

@@ -16,4 +16,5 @@ MoviesListItem.propTypes = {
     poster_path: PropTypes.string,
     overview: PropTypes.string.isRequired,
   }),
+  state: PropTypes.object,
 };
