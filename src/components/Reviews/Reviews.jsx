@@ -6,6 +6,7 @@ import { ReviewItem } from 'components/ReviewItem/ReviewItem';
 export const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
+
   useEffect(() => {
     const loadMovieReviews = async query => {
       const responseData = await getMovieReview(query);
@@ -13,7 +14,7 @@ export const Reviews = () => {
     };
 
     loadMovieReviews(movieId);
-  }, []);
+  }, [movieId]);
 
   if (!reviews) {
     return;

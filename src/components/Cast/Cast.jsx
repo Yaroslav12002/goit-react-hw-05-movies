@@ -7,6 +7,7 @@ import placeholder from '../../images/no-image-placeholder.png';
 export const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState(null);
+
   useEffect(() => {
     const loadMovieCast = async query => {
       const responseData = await getMovieCast(query);
@@ -14,7 +15,7 @@ export const Cast = () => {
     };
 
     loadMovieCast(movieId);
-  }, []);
+  }, [movieId]);
 
   if (!cast?.cast) {
     return;
