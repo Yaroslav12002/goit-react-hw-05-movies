@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getMoviesTrends } from 'services/moviesAPI';
 import { truncMoviesProperties } from 'services/truncMovieProperties';
 
-export const Home = () => {
+const Home = () => {
   const [moviesTrends, setmoviesTrends] = useState([]);
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

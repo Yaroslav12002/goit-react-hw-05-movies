@@ -4,8 +4,9 @@ import { SearchBar } from 'components/SearchBar/SearchBar';
 import { MoviesList } from 'components/MoviesList/MoviestList';
 import { getMoviesByQuery } from 'services/moviesAPI';
 import { truncMoviesProperties } from 'services/truncMovieProperties';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchMovies, setSearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(() => {
@@ -16,10 +17,16 @@ export const Movies = () => {
   useEffect(() => {
     const loadMoviesByQuery = async query => {
       const responseData = await getMoviesByQuery(query);
-      setSearchMovies(truncMoviesProperties(responseData.results));
+      const movies = responseData.results;
+      if (movies.length === 0) {
+        Notify.warning(`No movies found for ${query}`);
+      }
+      setSearchMovies(truncMoviesProperties(movies));
     };
 
-    loadMoviesByQuery(searchQuery);
+    if (searchQuery !== '') {
+      loadMoviesByQuery(searchQuery);
+    }
     const nextParams = searchQuery !== '' ? { search: searchQuery } : {};
     setSearchParams(nextParams);
   }, [searchQuery, setSearchParams]);
@@ -31,3 +38,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;

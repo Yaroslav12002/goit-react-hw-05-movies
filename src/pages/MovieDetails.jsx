@@ -1,5 +1,5 @@
 import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { getMovieById } from 'services/moviesAPI';
 import { Wrapper, PosterMovieDetails } from './MovieDetails.styled';
 import placeholder from '../images/no-image-placeholder.png';
@@ -16,7 +16,7 @@ const genre = genres => {
   return onlyNameFromGenres.join(', ');
 };
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
@@ -67,8 +67,12 @@ export const MovieDetails = () => {
             </NavLink>
           </li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<div>Loading subpage...</div>}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );
 };
+
+export default MovieDetails;
