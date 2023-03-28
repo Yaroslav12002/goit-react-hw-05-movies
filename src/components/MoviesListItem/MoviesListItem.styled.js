@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const ItemLink = styled(NavLink)`
+export const ItemLink = styled(Link)`
   display: block;
   width: 50%;
   margin-right: auto;
